@@ -23,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 MFGT.startActivity(SplashActivity.this, MainActivity.class);
+                MFGT.finishActivity(SplashActivity.this);
             }
         }, 3000);
     }
