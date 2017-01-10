@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class CategoryChildBean implements Serializable{
 
     /**
+     *
      * id : 345
      * parentId : 344
      * name : 热门

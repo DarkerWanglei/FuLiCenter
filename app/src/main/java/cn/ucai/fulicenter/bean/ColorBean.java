@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class ColorBean implements Serializable {
 
     /**
+     *
      * catId : 262
      * colorId : 1
      * colorName : 灰色

@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class AlbumsBean implements Serializable{
 
     /**
+     *
      * pid : 7672
      * imgId : 28283
      * imgUrl : 201509/goods_img/7672_P_1442389445199.jpg

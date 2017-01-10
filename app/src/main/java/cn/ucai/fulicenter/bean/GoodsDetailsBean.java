@@ -1,7 +1,7 @@
 package cn.ucai.fulicenter.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2017/1/9.
@@ -39,15 +39,12 @@ public class GoodsDetailsBean implements Serializable {
     private String currencyPrice;
     private String promotePrice;
     private String rankPrice;
-    private boolean isPromote;
     private String goodsThumb;
     private String goodsImg;
     private long addTime;
     private String shareUrl;
-    private List<PropertiesBean> properties;
-
-    public GoodsDetailsBean() {
-    }
+    private boolean isPromote;
+    private PropertiesBean[] properties;
 
     public int getId() {
         return id;
@@ -129,14 +126,6 @@ public class GoodsDetailsBean implements Serializable {
         this.rankPrice = rankPrice;
     }
 
-    public boolean isPromote() {
-        return isPromote;
-    }
-
-    public void setPromote(boolean promote) {
-        isPromote = promote;
-    }
-
     public String getGoodsThumb() {
         return goodsThumb;
     }
@@ -169,17 +158,25 @@ public class GoodsDetailsBean implements Serializable {
         this.shareUrl = shareUrl;
     }
 
-    public List<PropertiesBean> getProperties() {
+    public boolean isPromote() {
+        return isPromote;
+    }
+
+    public void setPromote(boolean promote) {
+        this.isPromote = promote;
+    }
+
+    public PropertiesBean[] getProperties() {
         return properties;
     }
 
-    public void setProperties(List<PropertiesBean> properties) {
+    public void setProperties(PropertiesBean[] properties) {
         this.properties = properties;
     }
 
     @Override
     public String toString() {
-        return "GoodsDetailsBean{" +
+        return "GoodDetailsBean{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", catId=" + catId +
@@ -190,12 +187,12 @@ public class GoodsDetailsBean implements Serializable {
                 ", currencyPrice='" + currencyPrice + '\'' +
                 ", promotePrice='" + promotePrice + '\'' +
                 ", rankPrice='" + rankPrice + '\'' +
-                ", isPromote=" + isPromote +
                 ", goodsThumb='" + goodsThumb + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", addTime=" + addTime +
                 ", shareUrl='" + shareUrl + '\'' +
-                ", properties=" + properties +
+                ", promote=" + isPromote +
+                ", properties=" + Arrays.toString(properties) +
                 '}';
     }
 }

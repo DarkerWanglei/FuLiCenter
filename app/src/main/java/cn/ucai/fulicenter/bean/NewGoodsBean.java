@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class NewGoodsBean implements Serializable {
 
     /**
+     *
      * id : 1
      * goodsId : 7672
      * catId : 0

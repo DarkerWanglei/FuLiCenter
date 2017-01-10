@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class MessageBean implements Serializable{
 
     /**
+     *
      * success : true
      * msg : 添加收藏成功
      */

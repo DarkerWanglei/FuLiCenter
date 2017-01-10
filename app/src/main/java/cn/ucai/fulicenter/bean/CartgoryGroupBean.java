@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class CartgoryGroupBean implements Serializable{
 
     /**
+     *
      * id : 344
      * name : 最IN
      * imageUrl : muying/2.jpg

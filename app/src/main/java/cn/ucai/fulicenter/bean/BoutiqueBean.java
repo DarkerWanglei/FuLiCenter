@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class BoutiqueBean implements Serializable{
 
     /**
+     *
      * id : 262
      * title : 不一样的新妆，不一样的美丽
      * description : 快速增长修护预防脱发洗发水让头发健康快速生长更美丽

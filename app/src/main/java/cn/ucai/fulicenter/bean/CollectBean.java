@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class CollectBean implements Serializable{
 
     /**
+     *
      * id : 2130
      * userName : a123456
      * goodsId : 7672

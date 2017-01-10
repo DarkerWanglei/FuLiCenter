@@ -1,7 +1,7 @@
 package cn.ucai.fulicenter.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2017/1/9.
@@ -27,10 +27,7 @@ public class PropertiesBean implements Serializable{
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    private List<AlbumsBean> albums;
-
-    public PropertiesBean() {
-    }
+    private AlbumsBean[] albums;
 
     public int getId() {
         return id;
@@ -88,15 +85,12 @@ public class PropertiesBean implements Serializable{
         this.colorUrl = colorUrl;
     }
 
-    public List<AlbumsBean> getAlbums() {
+    public AlbumsBean[] getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<AlbumsBean> albums) {
+    public void setAlbums(AlbumsBean[] albums) {
         this.albums = albums;
-    }
-
-    public static class AlbumsBean {
     }
 
     @Override
@@ -109,7 +103,7 @@ public class PropertiesBean implements Serializable{
                 ", colorCode='" + colorCode + '\'' +
                 ", colorImg='" + colorImg + '\'' +
                 ", colorUrl='" + colorUrl + '\'' +
-                ", albums=" + albums +
+                ", albums=" + Arrays.toString(albums) +
                 '}';
     }
 }
