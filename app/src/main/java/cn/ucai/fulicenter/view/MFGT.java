@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.view.MFGT;
+package cn.ucai.fulicenter.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,13 +10,13 @@ import cn.ucai.fulicenter.R;
  */
 
 public class MFGT {
-    public static void startActivity(Activity activity,Class<?> clz) {
-        activity.startActivity(new Intent(activity,clz));
+    public static void startActivity(Activity activity, Class<?> clz) {
+        activity.startActivity(new Intent(activity, clz));
         activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
     public static void finishActivity(Activity activity) {
         activity.finish();
-        activity.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+        activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }

@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.bean;
+package cn.ucai.fulicenter.model.bean;
 
 import java.io.Serializable;
 import java.util.Arrays;

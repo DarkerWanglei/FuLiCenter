@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter.bean;
+package cn.ucai.fulicenter.model.bean;
 
 import java.io.Serializable;
 
@@ -6,20 +6,22 @@ import java.io.Serializable;
  * Created by Administrator on 2017/1/9.
  */
 
-public class CartgoryGroupBean implements Serializable{
+public class CategoryChildBean implements Serializable{
 
     /**
      *
-     * id : 344
-     * name : 最IN
-     * imageUrl : muying/2.jpg
+     * id : 345
+     * parentId : 344
+     * name : 热门
+     * imageUrl : cat_image/256_1.png
      */
 
     private int id;
+    private int parentId;
     private String name;
     private String imageUrl;
 
-    public CartgoryGroupBean() {
+    public CategoryChildBean() {
     }
 
     public int getId() {
@@ -28,6 +30,14 @@ public class CartgoryGroupBean implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
@@ -48,8 +58,9 @@ public class CartgoryGroupBean implements Serializable{
 
     @Override
     public String toString() {
-        return "CartgoryGroupBean{" +
+        return "CategoryChildBean{" +
                 "id=" + id +
+                ", parentId=" + parentId +
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';

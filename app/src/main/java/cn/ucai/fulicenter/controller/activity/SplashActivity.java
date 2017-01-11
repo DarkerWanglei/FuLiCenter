@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import cn.ucai.fulicenter.MainActivity;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.view.MFGT.MFGT;
+import cn.ucai.fulicenter.view.MFGT;
 
 public class SplashActivity extends AppCompatActivity {
 

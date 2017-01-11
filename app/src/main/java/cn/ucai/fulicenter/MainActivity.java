@@ -1,12 +1,14 @@
 package cn.ucai.fulicenter;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mrbS = new RadioButton[5];
         initView();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, new NewGoodsFragment()).commit();
     }
 
     private void initView() {

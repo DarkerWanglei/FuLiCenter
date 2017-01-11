@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -15,7 +16,8 @@
             android:button="@null"
             android:checked="true"
             android:drawableTop="@drawable/selector_menu_item_new_good"
-            android:text="新品" />
+            android:text="新品"
+            android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
             android:id="@+id/layout_boutique"
@@ -23,7 +25,8 @@
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_boutique"
-            android:text="精选" />
+            android:text="精选"
+            android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
             android:id="@+id/layout_category"
@@ -31,7 +34,8 @@
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_category"
-            android:text="分类" />
+            android:text="分类"
+            android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
             android:id="@+id/layout_cart"
@@ -39,7 +43,8 @@
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_cart"
-            android:text="购物车" />
+            android:text="购物车"
+            android:textColor="@color/main_botton_text_color" />
 
         <RadioButton
             android:id="@+id/layout_personal_center"
@@ -47,8 +52,20 @@
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_personal_center"
-            android:text="个人中心" />
+            android:text="个人中心"
+            android:textColor="@color/main_botton_text_color" />
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/main_bottom" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/vLine" />
 </RelativeLayout>
