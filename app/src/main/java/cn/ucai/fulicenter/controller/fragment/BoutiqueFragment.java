@@ -48,7 +48,6 @@ public class BoutiqueFragment extends Fragment {
     IModelBoutique mModel;
 
     public BoutiqueFragment() {
-        // Required empty public constructor
     }
 
 

@@ -31,6 +31,7 @@ import cn.ucai.fulicenter.model.utils.ConvertUtils;
 import cn.ucai.fulicenter.model.utils.SpaceItemDecoration;
 
 /**
+ *
  * A simple {@link Fragment} subclass.
  */
 public class NewGoodsFragment extends Fragment {
