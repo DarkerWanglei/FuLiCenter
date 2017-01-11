@@ -79,7 +79,6 @@ public class NewGoodsFragment extends Fragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                mAdapter.setDragging(newState == RecyclerView.SCROLL_STATE_DRAGGING);
                 int lastPosition = gm.findLastVisibleItemPosition();
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.isMore() && lastPosition == mAdapter.getItemCount() - 1) {
                     mPageId++;

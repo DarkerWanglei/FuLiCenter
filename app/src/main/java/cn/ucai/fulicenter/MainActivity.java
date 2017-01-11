@@ -1,6 +1,8 @@
 package cn.ucai.fulicenter;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,11 +10,17 @@ import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
+    FragmentTransaction ft;
     RadioButton[] mrbS;
+    NewGoodsFragment newGoodsFragment;
+    BoutiqueFragment boutiqueFragment;
+    Fragment[] fragments;
+
     @BindView(R.id.layout_new_good)
     RadioButton mLayoutNewGood;
     @BindView(R.id.layout_boutique)
@@ -30,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mrbS = new RadioButton[5];
+        fragments = new Fragment[5];
         initView();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, new NewGoodsFragment()).commit();
+        newGoodsFragment = new NewGoodsFragment();
+        boutiqueFragment = new BoutiqueFragment();
+        fragments[0] = newGoodsFragment;
+        fragments[1] = boutiqueFragment;
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, newGoodsFragment)
+                .add(R.id.fragment_container, boutiqueFragment)
+//                .show(newGoodsFragment)
+                .hide(boutiqueFragment).commit();
     }
 
     private void initView() {
@@ -41,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mrbS[2] = mLayoutCategory;
         mrbS[3] = mLayoutCart;
         mrbS[4] = mLayoutPersonalCenter;
+
     }
 
     public void onCheckedChange(View view) {
@@ -61,9 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 mIndex = 4;
                 break;
         }
+
         if (mIndex != mCurrentIndex) {
+            setFragment();
             setRadioStatus();
         }
+    }
+
+    private void setFragment() {
+        getSupportFragmentManager().beginTransaction().show(fragments[mIndex])
+                .hide(fragments[mCurrentIndex]).commit();
+
     }
 
     private void setRadioStatus() {

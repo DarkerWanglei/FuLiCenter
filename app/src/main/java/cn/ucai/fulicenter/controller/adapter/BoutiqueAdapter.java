@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
-import cn.ucai.fulicenter.model.bean.NewGoodsBean;
+import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
 import cn.ucai.fulicenter.view.FooterViewHolder;
 
@@ -22,11 +22,10 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
  * Created by Administrator on 2017/1/11.
  */
 
-public class GoodsAdapter extends RecyclerView.Adapter {
+public class BoutiqueAdapter extends RecyclerView.Adapter {
     Context mContext;
-    ArrayList<NewGoodsBean> mList;
+    ArrayList<BoutiqueBean> mList;
     String footer;
-    boolean isMore;
 
     public String getFooter() {
         return footer;
@@ -37,35 +36,22 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public boolean isMore() {
-        return isMore;
-    }
-
-    public void setMore(boolean more) {
-        isMore = more;
-        notifyDataSetChanged();
-    }
-
-    public GoodsAdapter(Context mContext, ArrayList<NewGoodsBean> list) {
-        this.mContext = mContext;
+    public BoutiqueAdapter(Context context, ArrayList<BoutiqueBean> list) {
+        this.mContext = context;
         this.mList = list;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        RecyclerView.ViewHolder holder =
-//                new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
-//        return holder;
-//        LayoutInflater.from(mContext).inflate(R.layout.item_goods, null);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View layout;
         switch (viewType) {
+            case I.TYPE_ITEM:
+                layout = inflater.inflate(R.layout.item_boutique, null);
+                return new BoutiqueViewHolder(layout);
             case I.TYPE_FOOTER:
                 layout = inflater.inflate(R.layout.item_footer, null);
                 return new FooterViewHolder(layout);
-            case I.TYPE_ITEM:
-                layout = inflater.inflate(R.layout.item_goods, null);
-                return new GoodsViewHolder(layout);
         }
         return null;
     }
@@ -77,10 +63,12 @@ public class GoodsAdapter extends RecyclerView.Adapter {
             fv.tvFooter.setText(getFooter());
             return;
         }
-        GoodsViewHolder vh = (GoodsViewHolder) holder;
-        ImageLoader.downloadImg(mContext, vh.ivGoodsThumb, mList.get(position).getGoodsThumb());
-        vh.tvGoodsName.setText(mList.get(position).getGoodsName());
-        vh.tvGoodsPrice.setText(mList.get(position).getCurrencyPrice());
+        BoutiqueViewHolder bv = (BoutiqueViewHolder) holder;
+        bv.mtvTitle.setText(mList.get(position).getTitle());
+        bv.mtvName.setText(mList.get(position).getName());
+        bv.mtvDescription.setText(mList.get(position).getDescription());
+
+        ImageLoader.downloadImg(mContext,bv.mivBoutique,mList.get(position).getImageurl());
     }
 
     @Override
@@ -96,28 +84,29 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         return I.TYPE_ITEM;
     }
 
-
-    public void initData(ArrayList<NewGoodsBean> list) {
+    public void initData(ArrayList<BoutiqueBean> list) {
         if (mList != null) {
             mList.clear();
         }
         addData(list);
     }
 
-    public void addData(ArrayList<NewGoodsBean> list) {
+    public void addData(ArrayList<BoutiqueBean> list) {
         mList.addAll(list);
         notifyDataSetChanged();
     }
 
-    static class GoodsViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ivGoodsThumb)
-        ImageView ivGoodsThumb;
-        @BindView(R.id.tvGoodsName)
-        TextView tvGoodsName;
-        @BindView(R.id.tvGoodsPrice)
-        TextView tvGoodsPrice;
+    static class BoutiqueViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ivBoutique)
+        ImageView mivBoutique;
+        @BindView(R.id.tvTitle)
+        TextView mtvTitle;
+        @BindView(R.id.tvName)
+        TextView mtvName;
+        @BindView(R.id.tvDescription)
+        TextView mtvDescription;
 
-        GoodsViewHolder(View view) {
+        BoutiqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
