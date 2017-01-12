@@ -25,6 +25,6 @@ public class SplashActivity extends AppCompatActivity {
                 MFGT.startActivity(SplashActivity.this, MainActivity.class);
                 MFGT.finishActivity(SplashActivity.this);
             }
-        }, 3000);
+        }, 2000);
     }
 }

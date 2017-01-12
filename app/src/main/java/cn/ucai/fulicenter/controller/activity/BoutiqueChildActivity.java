@@ -9,8 +9,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueChildFragment;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
+import cn.ucai.fulicenter.view.MFGT;
 
 public class BoutiqueChildActivity extends AppCompatActivity {
 
@@ -29,8 +31,7 @@ public class BoutiqueChildActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        BoutiqueBean boutique = (BoutiqueBean) getIntent().getSerializableExtra("boutique");
-        tvName.setText(boutique.getName());
+        tvName.setText(getIntent().getStringExtra(I.Boutique.NAME));
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container_boutique_child, new BoutiqueChildFragment())
                 .commit();
@@ -40,6 +41,7 @@ public class BoutiqueChildActivity extends AppCompatActivity {
     public void onClick() {
 //      onBackPressed();
 //        BoutiqueChildActivity.this.finish();
-        finish();
+//        finish();
+        MFGT.finishActivity(this);
     }
 }
