@@ -17,24 +17,12 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/load_more"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="load_more"
-                android:textSize="20dp"
-                android:visibility="gone"
-                 />
-
         </LinearLayout>
-
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
