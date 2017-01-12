@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_boutique_child"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <LinearLayout
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:id="@+id/detail_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/tb_btn_login_orange_normal"
-        android:orientation="horizontal">
+        android:background="@drawable/tb_btn_login_orange_normal">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -21,10 +21,105 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/ivBack"
             android:text="商品详情"
             android:textSize="25dp" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/selector_share_bg" />
+
+        <ImageView
+            android:id="@+id/ivCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/ivShare"
+            android:src="@mipmap/bg_collect_in" />
+
+        <ImageView
+            android:id="@+id/ivCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/ivCollect"
+            android:src="@mipmap/bg_cart_selected" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/detail_top">
+
+        <TextView
+            android:id="@+id/tv_good_name_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="mb"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_below="@id/tv_good_name_english"
+            android:id="@+id/tv_good_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="sssss"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_toRightOf="@id/tv_good_name"
+            android:id="@+id/tv_good_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:layout_margin="5dp"
+            android:text="$1" />
+
+        <RelativeLayout
+            android:id="@+id/layout_image"
+            android:layout_width="wrap_content"
+            android:layout_height="190dp"
+            android:layout_below="@id/tv_good_name">
+
+            <cn.ucai.fulicenter.view.SlideAutoLoopView
+                android:id="@+id/slav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff">
+
+            </cn.ucai.fulicenter.view.SlideAutoLoopView>
+
+            <cn.ucai.fulicenter.view.FlowIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:count="4"
+                app:focus="0"
+                app:space="5dp" />
+        </RelativeLayout>
+
+        <WebView
+            android:id="@+id/wv_good_brief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_image"
+            android:layout_margin="10dp" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
