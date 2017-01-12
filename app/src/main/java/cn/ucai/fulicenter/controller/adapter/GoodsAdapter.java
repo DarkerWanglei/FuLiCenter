@@ -57,7 +57,6 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 //        RecyclerView.ViewHolder holder =
 //                new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
 //        return holder;
-//        LayoutInflater.from(mContext).inflate(R.layout.item_goods, null);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View layout;
         switch (viewType) {

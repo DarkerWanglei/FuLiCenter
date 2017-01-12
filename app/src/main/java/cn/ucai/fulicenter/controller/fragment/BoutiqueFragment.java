@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
@@ -26,7 +25,6 @@ import cn.ucai.fulicenter.model.net.IModelBoutique;
 import cn.ucai.fulicenter.model.net.ModelBoutique;
 import cn.ucai.fulicenter.model.net.onCompleteListener;
 import cn.ucai.fulicenter.model.utils.ConvertUtils;
-import cn.ucai.fulicenter.model.utils.OkHttpUtils;
 import cn.ucai.fulicenter.model.utils.SpaceItemDecoration;
 
 /**
@@ -46,6 +44,8 @@ public class BoutiqueFragment extends Fragment {
     BoutiqueAdapter mAdapter;
     ArrayList<BoutiqueBean> mList;
     IModelBoutique mModel;
+    @BindView(R.id.load_more)
+    TextView tvLoadMore;
 
     public BoutiqueFragment() {
     }
@@ -87,9 +87,9 @@ public class BoutiqueFragment extends Fragment {
         mModel.downData(getContext(), new onCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
-                Log.i("main", Arrays.toString(result));
                 ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
-                mAdapter.setFooter("没有更多数据");
+                srl.setVisibility(View.VISIBLE);
+                tvLoadMore.setVisibility(View.GONE);
                 switch (action) {
                     case I.ACTION_DOWNLOAD:
                         mAdapter.initData(list);
@@ -99,12 +99,18 @@ public class BoutiqueFragment extends Fragment {
                         tvRefresh.setVisibility(View.GONE);
                         mAdapter.initData(list);
                         break;
+                    default:
+                        srl.setVisibility(View.GONE);
+                        tvLoadMore.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
 
             @Override
             public void onError(String error) {
                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                srl.setRefreshing(false);
+                tvRefresh.setVisibility(View.GONE);
             }
         });
     }
@@ -125,4 +131,8 @@ public class BoutiqueFragment extends Fragment {
         rv.addItemDecoration(new SpaceItemDecoration(15));
     }
 
+    @OnClick(R.id.load_more)
+    public void onClick() {
+        downloadBoutique(I.ACTION_DOWNLOAD);
+    }
 }
