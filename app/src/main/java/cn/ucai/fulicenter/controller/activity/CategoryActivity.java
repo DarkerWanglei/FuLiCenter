@@ -13,7 +13,6 @@ import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.CategoryChildFragment;
-import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
 public class CategoryActivity extends AppCompatActivity {
 
@@ -29,6 +28,10 @@ public class CategoryActivity extends AppCompatActivity {
     CategoryChildFragment mCategoryChildFragment;
     boolean priceAsc = false;
     boolean addTimeAsc = false;
+    @BindView(R.id.ivPrice)
+    ImageView ivPrice;
+    @BindView(R.id.ivAddTime)
+    ImageView ivAddTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +76,7 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
         }
         mCategoryChildFragment.sortGoods(sortBy);
+        ivPrice.setImageResource(priceAsc?R.drawable.arrow_order_up:R.drawable.arrow_order_down);
+        ivAddTime.setImageResource(addTimeAsc?R.drawable.arrow_order_up:R.drawable.arrow_order_down);
     }
 }

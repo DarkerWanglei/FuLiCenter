@@ -59,7 +59,7 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
        bv.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               MFGT.gotoBoutiqueChild(mContext,mList.get(position).getId());
+               MFGT.gotoBoutiqueChild(mContext,mList.get(position));
            }
        });
     }
