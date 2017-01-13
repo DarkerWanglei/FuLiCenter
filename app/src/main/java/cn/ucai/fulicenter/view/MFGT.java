@@ -3,10 +3,13 @@ package cn.ucai.fulicenter.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
+import android.util.Log;
 
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.activity.BoutiqueChildActivity;
+import cn.ucai.fulicenter.controller.activity.CategoryActivity;
 import cn.ucai.fulicenter.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 
@@ -62,6 +65,12 @@ public class MFGT {
     public static void gotoBoutiqueChild(Context context,int goodsId) {
         Intent intent = new Intent(context, GoodsDetailsActivity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId);
+        startActivity((Activity) context,intent);
+    }
+
+    public static void gotoCategoryChild(Context context,int goodsId) {
+        Intent intent = new Intent(context, CategoryActivity.class);
+        intent.putExtra(I.CategoryChild.CAT_ID, goodsId);
         startActivity((Activity) context,intent);
     }
 }
