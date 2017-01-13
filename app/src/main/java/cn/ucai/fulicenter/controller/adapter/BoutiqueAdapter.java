@@ -56,12 +56,12 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         holder.itemView.setTag(mList.get(position));
         ImageLoader.downloadImg(mContext, bv.mivBoutique, mList.get(position).getImageurl());
 
-//       bv.itemView.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               MFGT.gotoBoutiqueChild(mContext,mList.get(position));
-//           }
-//       });
+       bv.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               MFGT.gotoBoutiqueChild(mContext,mList.get(position).getId());
+           }
+       });
     }
 
     @Override

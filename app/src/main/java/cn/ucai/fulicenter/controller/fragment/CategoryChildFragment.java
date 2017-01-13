@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,7 +104,7 @@ public class CategoryChildFragment extends Fragment {
 
     private void downloadNewGoods(final int action, int pageId) {
 
-        int catId = getActivity().getIntent().getIntExtra(I.CategoryChild.CAT_ID, I.CAT_ID);
+        int catId = getActivity().getIntent().getIntExtra(I.NewAndBoutiqueGoods.CAT_ID, I.CAT_ID);
         mModel.downData(getContext(), catId, pageId, new onCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
@@ -151,6 +153,10 @@ public class CategoryChildFragment extends Fragment {
         mrv.setLayoutManager(gm);
         mrv.setHasFixedSize(true);
         mrv.addItemDecoration(new SpaceItemDecoration(30));
+    }
+
+    public void sortGoods(int sortBy) {
+        mAdapter.sortGoods(sortBy);
     }
 
 }

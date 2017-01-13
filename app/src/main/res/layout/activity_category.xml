@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_boutique_child"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <LinearLayout
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:id="@+id/detail_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,14 +21,56 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:text="拯救头发,美丽新装"
+            android:text="拯救"
             android:textSize="25dp" />
 
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_top"
+        android:background="#f7a604"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_sort_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f7a604"
+            android:text="价格" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/arrow_order_up" />
+
+        <Button
+            android:id="@+id/btn_sort_addtime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f7a604"
+            android:text="上架时间" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/arrow_order_down" />
+
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fragment_container_category_child"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/detail_top"/>
+        android:layout_below="@id/layout_button" />
 </RelativeLayout>
