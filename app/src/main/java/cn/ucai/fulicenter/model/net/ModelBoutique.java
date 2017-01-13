@@ -10,6 +10,9 @@ import cn.ucai.fulicenter.model.utils.OkHttpUtils;
  * Created by Administrator on 2017/1/11.
  */
 
+/**
+ * 进入精选页面
+ */
 public class ModelBoutique implements IModelBoutique {
     @Override
     public void downData(Context context, onCompleteListener<BoutiqueBean[]> listener) {

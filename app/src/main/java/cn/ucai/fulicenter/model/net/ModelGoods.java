@@ -10,6 +10,9 @@ import cn.ucai.fulicenter.model.utils.OkHttpUtils;
  * Created by Administrator on 2017/1/12.
  */
 
+/**
+ * 进入商品详情
+ */
 public class ModelGoods implements IModelGoods {
 
     @Override

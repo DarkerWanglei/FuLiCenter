@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
-import cn.ucai.fulicenter.controller.adapter.GoodsAdapter;
-import cn.ucai.fulicenter.model.bean.BoutiqueBean;
+import cn.ucai.fulicenter.controller.adapter.NewGoodsAdapter;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.net.IModelNewGoods;
 import cn.ucai.fulicenter.model.net.ModelNewGoods;
@@ -32,9 +30,6 @@ import cn.ucai.fulicenter.model.utils.SpaceItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class BoutiqueChildFragment extends Fragment {
-    static final int ACTION_DOWNLOAD = 0;
-    static final int ACTION_PULL_DOWN = 1;
-    static final int ACTION_PULL_UP = 2;
 
     @BindView(R.id.rv)
     RecyclerView mrv;
@@ -43,7 +38,7 @@ public class BoutiqueChildFragment extends Fragment {
     @BindView(R.id.tv_refresh)
     TextView mtvRefresh;
 
-    GoodsAdapter mAdapter;
+    NewGoodsAdapter mAdapter;
     ArrayList<NewGoodsBean> mList;
     int mPageId;
     IModelNewGoods mModel;
@@ -80,7 +75,7 @@ public class BoutiqueChildFragment extends Fragment {
                 int lastPosition = gm.findLastVisibleItemPosition();
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.isMore() && lastPosition == mAdapter.getItemCount() - 1) {
                     mPageId++;
-                    downloadNewGoods(ACTION_PULL_UP, mPageId);
+                    downloadNewGoods(I.ACTION_PULL_UP, mPageId);
                 }
             }
         });
@@ -93,14 +88,14 @@ public class BoutiqueChildFragment extends Fragment {
                 mtvRefresh.setVisibility(View.VISIBLE);
                 mSrl.setRefreshing(true);
                 mPageId = 1;
-                downloadNewGoods(ACTION_PULL_DOWN, mPageId);
+                downloadNewGoods(I.ACTION_PULL_DOWN, mPageId);
             }
         });
     }
 
     private void initData() {
         mPageId = 1;
-        downloadNewGoods(ACTION_DOWNLOAD, mPageId);
+        downloadNewGoods(I.ACTION_DOWNLOAD, mPageId);
     }
 
     private void downloadNewGoods(final int action, int pageId) {
@@ -111,22 +106,22 @@ public class BoutiqueChildFragment extends Fragment {
                 ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
                 mAdapter.setMore(result != null && result.length > 0);
                 if (!mAdapter.isMore()) {
-                    if (action == ACTION_PULL_UP) {
+                    if (action == I.ACTION_PULL_UP) {
                         mAdapter.setFooter("没有更多数据");
                     }
                     return;
                 }
                 mAdapter.setFooter("加载更多数据");
                 switch (action) {
-                    case ACTION_DOWNLOAD:
+                    case I.ACTION_DOWNLOAD:
                         mAdapter.initData(list);
                         break;
-                    case ACTION_PULL_DOWN:
+                    case I.ACTION_PULL_DOWN:
                         mSrl.setRefreshing(false);
                         mtvRefresh.setVisibility(View.GONE);
                         mAdapter.initData(list);
                         break;
-                    case ACTION_PULL_UP:
+                    case I.ACTION_PULL_UP:
                         mAdapter.addData(list);
                         break;
                 }
@@ -147,7 +142,7 @@ public class BoutiqueChildFragment extends Fragment {
                 getResources().getColor(R.color.google_yellow)
         );
         mList = new ArrayList<>();
-        mAdapter = new GoodsAdapter(getContext(), mList);
+        mAdapter = new NewGoodsAdapter(getContext(), mList);
         mrv.setAdapter(mAdapter);
         gm = new GridLayoutManager(getContext(), I.COLUM_NUM);
         mrv.setLayoutManager(gm);

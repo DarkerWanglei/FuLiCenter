@@ -2,9 +2,11 @@ package cn.ucai.fulicenter.controller.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +78,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
-
+                Toast.makeText(GoodsDetailsActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });
     }

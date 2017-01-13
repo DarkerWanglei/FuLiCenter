@@ -14,22 +14,39 @@ import cn.ucai.fulicenter.model.bean.BoutiqueBean;
  * Created by Administrator on 2017/1/10.
  */
 
+/**
+ * 开机
+ */
 public class MFGT {
     public static void startActivity(Activity activity, Class<?> clz) {
         activity.startActivity(new Intent(activity, clz));
         activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
+    /**
+     * 结束activity
+     * @param activity
+     */
     public static void finishActivity(Activity activity) {
         activity.finish();
         activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
+    /**
+     * 启动另一个activity
+     * @param activity
+     * @param intent
+     */
     public static void startActivity(Activity activity,Intent intent) {
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
+    /**
+     * 精选页面进入
+     * @param context
+     * @param boutiqueBean
+     */
     public static void gotoBoutiqueChild(Context context, BoutiqueBean boutiqueBean) {
         Intent intent = new Intent(context, BoutiqueChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID, boutiqueBean.getId());
@@ -37,6 +54,11 @@ public class MFGT {
         startActivity((Activity) context,intent);
     }
 
+    /**
+     * 进入商品详情
+     * @param context
+     * @param goodsId
+     */
     public static void gotoBoutiqueChild(Context context,int goodsId) {
         Intent intent = new Intent(context, GoodsDetailsActivity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId);

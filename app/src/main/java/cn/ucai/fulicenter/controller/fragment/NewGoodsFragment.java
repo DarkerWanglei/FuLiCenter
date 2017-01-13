@@ -2,13 +2,10 @@ package cn.ucai.fulicenter.controller.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
-import cn.ucai.fulicenter.controller.adapter.GoodsAdapter;
+import cn.ucai.fulicenter.controller.adapter.NewGoodsAdapter;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.net.IModelNewGoods;
 import cn.ucai.fulicenter.model.net.ModelNewGoods;
@@ -46,7 +42,7 @@ public class NewGoodsFragment extends Fragment {
     @BindView(R.id.tv_refresh)
     TextView mtvRefresh;
 
-    GoodsAdapter mAdapter;
+    NewGoodsAdapter mAdapter;
     ArrayList<NewGoodsBean> mList;
     int mPageId;
     IModelNewGoods mModel;
@@ -149,7 +145,7 @@ public class NewGoodsFragment extends Fragment {
                 getResources().getColor(R.color.google_yellow)
         );
         mList = new ArrayList<>();
-        mAdapter = new GoodsAdapter(getContext(), mList);
+        mAdapter = new NewGoodsAdapter(getContext(), mList);
         mrv.setAdapter(mAdapter);
         gm = new GridLayoutManager(getContext(), I.COLUM_NUM);
         mrv.setLayoutManager(gm);

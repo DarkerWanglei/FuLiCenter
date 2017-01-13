@@ -1,4 +1,4 @@
-package cn.ucai.fulicenter;
+package cn.ucai.fulicenter.controller.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,15 +10,18 @@ import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
     FragmentTransaction ft;
     RadioButton[] mrbS;
-    NewGoodsFragment newGoodsFragment;
-    BoutiqueFragment boutiqueFragment;
+    NewGoodsFragment mNewGoodsFragment;
+    BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
     Fragment[] fragments;
 
     @BindView(R.id.layout_new_good)
@@ -40,15 +43,20 @@ public class MainActivity extends AppCompatActivity {
         mrbS = new RadioButton[5];
         fragments = new Fragment[5];
         initView();
-        newGoodsFragment = new NewGoodsFragment();
-        boutiqueFragment = new BoutiqueFragment();
-        fragments[0] = newGoodsFragment;
-        fragments[1] = boutiqueFragment;
+        mNewGoodsFragment = new NewGoodsFragment();
+        mBoutiqueFragment = new BoutiqueFragment();
+        mCategoryFragment = new CategoryFragment();
+        fragments[0] = mNewGoodsFragment;
+        fragments[1] = mBoutiqueFragment;
+        fragments[2] = mCategoryFragment;
         ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, newGoodsFragment)
-                .add(R.id.fragment_container, boutiqueFragment)
+        ft.add(R.id.fragment_container, mNewGoodsFragment)
+                .add(R.id.fragment_container, mBoutiqueFragment)
+                .add(R.id.fragment_container, mCategoryFragment)
 //                .show(newGoodsFragment)
-                .hide(boutiqueFragment).commit();
+                .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
+                .commit();
     }
 
     private void initView() {

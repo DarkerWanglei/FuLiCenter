@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2017/1/9.
  */
 
-public class CartgoryGroupBean implements Serializable{
+public class CategoryGroupBean implements Serializable{
 
     /**
      *
@@ -19,7 +19,7 @@ public class CartgoryGroupBean implements Serializable{
     private String name;
     private String imageUrl;
 
-    public CartgoryGroupBean() {
+    public CategoryGroupBean() {
     }
 
     public int getId() {
@@ -48,7 +48,7 @@ public class CartgoryGroupBean implements Serializable{
 
     @Override
     public String toString() {
-        return "CartgoryGroupBean{" +
+        return "CategoryGroupBean{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +

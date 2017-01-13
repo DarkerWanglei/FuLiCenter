@@ -24,7 +24,7 @@ import cn.ucai.fulicenter.view.MFGT;
  * Created by Administrator on 2017/1/11.
  */
 
-public class GoodsAdapter extends RecyclerView.Adapter {
+public class NewGoodsAdapter extends RecyclerView.Adapter {
     Context mContext;
     ArrayList<NewGoodsBean> mList;
     String footer;
@@ -48,7 +48,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public GoodsAdapter(Context mContext, ArrayList<NewGoodsBean> list) {
+    public NewGoodsAdapter(Context mContext, ArrayList<NewGoodsBean> list) {
         this.mContext = mContext;
         this.mList = list;
     }

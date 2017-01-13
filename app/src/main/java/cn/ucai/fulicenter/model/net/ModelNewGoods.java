@@ -10,6 +10,9 @@ import cn.ucai.fulicenter.model.utils.OkHttpUtils;
  * Created by Administrator on 2017/1/11.
  */
 
+/**
+ * 进入新品页面
+ */
 public class ModelNewGoods implements IModelNewGoods {
     @Override
     public void downData(Context context, int catId, int pageId, onCompleteListener<NewGoodsBean[]> listener) {
