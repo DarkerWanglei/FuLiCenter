@@ -3,6 +3,7 @@ package cn.ucai.fulicenter.controller.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
            @Override
            public void onClick(View v) {
                MFGT.gotoBoutiqueChild(mContext,mList.get(position));
+               Log.i("main", "======" + mList.get(position));
            }
        });
     }

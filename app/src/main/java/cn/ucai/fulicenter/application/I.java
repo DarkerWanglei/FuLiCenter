@@ -146,6 +146,7 @@ public interface I {
 
     interface CategoryChild extends CategoryGroup{
         String PARENT_ID="parent_id";
+        String DATA = "category_data";
         String CAT_ID="catId";
     }
 

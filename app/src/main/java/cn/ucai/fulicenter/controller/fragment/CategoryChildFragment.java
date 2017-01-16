@@ -104,7 +104,7 @@ public class CategoryChildFragment extends Fragment {
 
     private void downloadNewGoods(final int action, int pageId) {
 
-        int catId = getActivity().getIntent().getIntExtra(I.NewAndBoutiqueGoods.CAT_ID, I.CAT_ID);
+        int catId = getActivity().getIntent().getIntExtra(I.CategoryChild.CAT_ID, I.CAT_ID);
         mModel.downData(getContext(), catId, pageId, new onCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
