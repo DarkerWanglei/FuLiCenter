@@ -108,6 +108,8 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
                         getChild(groupPosition, childPosition).getId(),
                         getGroup(groupPosition).getName(),
                         mChildList.get(groupPosition));
+                Log.i("main", "-==-=-=-    " + groupPosition);
+                Log.i("main", "1231321313213     " + childPosition);
             }
         });
         return convertView;
