@@ -161,5 +161,4 @@ public class CatFilterButton extends Button {
             }
         }
     }
-
 }

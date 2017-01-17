@@ -15,9 +15,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.Result;
 import cn.ucai.fulicenter.model.bean.User;
+import cn.ucai.fulicenter.model.dao.DBManager;
+import cn.ucai.fulicenter.model.dao.UserDao;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.SharePrefrenceUtils;
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     private void login(final String userName, String password) {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.logining));
+        dialog.show();
         mModelUser = new ModelUser();
         mModelUser.login(this, userName, password, new onCompleteListener<String>() {
             @Override
@@ -89,7 +93,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
-                            SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
+                            boolean b = UserDao.getInstance().saveUser(user);
+                            if (b) {
+                                SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
+                                FuLiCenterApplication.setUser(user);
+                            }
                             Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                             MFGT.finishActivity(LoginActivity.this);
                         } else {

@@ -15,6 +15,7 @@ import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
+import cn.ucai.fulicenter.controller.fragment.PersonalCenterFragment;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenterFragment mPersonalCenterFragment;
     Fragment[] fragments;
 
     @BindView(R.id.layout_new_good)
@@ -48,16 +50,20 @@ public class MainActivity extends AppCompatActivity {
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
+        mPersonalCenterFragment = new PersonalCenterFragment();
         fragments[0] = mNewGoodsFragment;
         fragments[1] = mBoutiqueFragment;
         fragments[2] = mCategoryFragment;
+        fragments[4] = mPersonalCenterFragment;
         ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
+                .add(R.id.fragment_container,mPersonalCenterFragment)
 //                .show(newGoodsFragment)
                 .hide(mBoutiqueFragment)
                 .hide(mCategoryFragment)
+                .hide(mPersonalCenterFragment)
                 .commit();
     }
 

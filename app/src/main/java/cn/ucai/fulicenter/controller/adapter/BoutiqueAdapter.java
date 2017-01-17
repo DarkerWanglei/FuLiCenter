@@ -61,7 +61,6 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
            @Override
            public void onClick(View v) {
                MFGT.gotoBoutiqueChild(mContext,mList.get(position));
-               Log.i("main", "======" + mList.get(position));
            }
        });
     }
