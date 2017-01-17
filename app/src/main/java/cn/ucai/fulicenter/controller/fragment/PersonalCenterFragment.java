@@ -3,7 +3,6 @@ package cn.ucai.fulicenter.controller.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
-import cn.ucai.fulicenter.controller.activity.MainActivity;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
 import cn.ucai.fulicenter.view.MFGT;
@@ -55,8 +54,12 @@ public class PersonalCenterFragment extends Fragment {
     }
 
     private void loadUserInfo(User user) {
-        ImageLoader.downloadImg(getContext(),ivUserAvatar,user.getAvatarPath());
+        ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
         tvUserName.setText(user.getMuserNick());
     }
 
+    @OnClick({R.id.tv_center_settings, R.id.center_user_info})
+    public void settings() {
+        MFGT.gotoSettings(getActivity());
+    }
 }

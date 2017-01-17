@@ -1,10 +1,12 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -12,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
@@ -102,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
         if (!mFragments[mIndex].isAdded()) {
             ft.add(R.id.fragment_container, mFragments[mIndex]);
         }
-        ft.show(mFragments[mIndex]).commit();
+        ft.show(mFragments[mIndex]).commitAllowingStateLoss();
+//        commitAllowingStateLoss()
     }
 
     private void setRadioStatus() {
@@ -114,5 +118,27 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         mCurrentIndex = mIndex;
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i("main", "onResume,currentIndex=" + mCurrentIndex + ",index" + mIndex + ",user=" + FuLiCenterApplication.getUser());
+        super.onResume();
+        if (mIndex == 4 && FuLiCenterApplication.getUser() == null) {
+            mIndex = 0;
+        }
+        setFragment();
+        setRadioStatus();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("main", "onActivityResult" + resultCode);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
+            mIndex = 4;
+            setFragment();
+            setRadioStatus();
+        }
     }
 }

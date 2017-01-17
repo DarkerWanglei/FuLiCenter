@@ -19,7 +19,6 @@ import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.Result;
 import cn.ucai.fulicenter.model.bean.User;
-import cn.ucai.fulicenter.model.dao.DBManager;
 import cn.ucai.fulicenter.model.dao.UserDao;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
@@ -30,13 +29,6 @@ import cn.ucai.fulicenter.model.utils.ResultUtils;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class LoginActivity extends AppCompatActivity {
-
-    @BindView(R.id.btnLogin)
-    Button btnLogin;
-    @BindView(R.id.btnRegister)
-    Button btnRegister;
-    @BindView(R.id.ivReturn)
-    ImageView ivReturn;
     @BindView(R.id.etUserName)
     EditText etUserName;
     @BindView(R.id.etPassword)
@@ -90,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(String s) {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, User.class);
-                    Log.i("main", "----====--" + result);
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
@@ -98,9 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (b) {
                                 SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
                                 FuLiCenterApplication.setUser(user);
+                                setResult(RESULT_OK);
+                                MFGT.finishActivity(LoginActivity.this);
                             }
                             Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                            MFGT.finishActivity(LoginActivity.this);
                         } else {
                             if (result.getRetCode() == I.MSG_LOGIN_UNKNOW_USER) {
                                 CommonUtils.showLongToast(getString(R.string.login_fail_unknow_user));
@@ -124,5 +116,10 @@ public class LoginActivity extends AppCompatActivity {
                 CommonUtils.showLongToast(getString(R.string.login_fail));
             }
         });
+    }
+
+    @OnClick(R.id.ivReturn)
+    public void onClick() {
+        finish();
     }
 }
