@@ -1,17 +1,23 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.SharePrefrenceUtils;
+import cn.ucai.fulicenter.model.utils.CommonUtils;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
 import cn.ucai.fulicenter.view.MFGT;
 
@@ -58,5 +64,14 @@ public class SettingsActivity extends AppCompatActivity {
     @OnClick(R.id.ivReturn)
     public void onClick() {
         finish();
+    }
+
+    @OnClick(R.id.rl_nick)
+    public void updateNick() {
+        String nick = tvNick.getText().toString().trim();
+        if (TextUtils.isEmpty(nick)) {
+            tvNick.setError(getResources().getString(R.string.nick_name_connot_be_empty));
+        }
+        Toast.makeText(this, "===---===", Toast.LENGTH_SHORT).show();
     }
 }
