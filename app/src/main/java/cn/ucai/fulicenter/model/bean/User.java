@@ -114,4 +114,12 @@ public class User {
                 ", mavatarLastUpdateTime='" + mavatarLastUpdateTime + '\'' +
                 '}';
     }
+
+    public String getAvatarPath() {
+        String path = "http://101.251.196.90:8000/FuLiCenterServerV2.0/downloadAvatar?name_or_hxid="
+                + this.getMuserName()
+                + "&avatarType=user_avatar&m_avatar_suffix="
+                + this.getMavatarSuffix() + "&width=80&height=80";
+        return path;
+    }
 }

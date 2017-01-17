@@ -85,7 +85,7 @@ public class MFGT {
         startActivity((Activity) context,intent);
     }
 
-    public static void gotoLogin(MainActivity context) {
+    public static void gotoLogin(Activity context) {
         startActivity(context, LoginActivity.class);
     }
 

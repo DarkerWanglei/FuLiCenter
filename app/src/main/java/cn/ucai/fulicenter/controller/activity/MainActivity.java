@@ -20,13 +20,12 @@ import cn.ucai.fulicenter.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
-    FragmentTransaction ft;
     RadioButton[] mrbS;
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
     PersonalCenterFragment mPersonalCenterFragment;
-    Fragment[] fragments;
+    Fragment[] mFragments;
 
     @BindView(R.id.layout_new_good)
     RadioButton mLayoutNewGood;
@@ -45,26 +44,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mrbS = new RadioButton[5];
-        fragments = new Fragment[5];
+        mFragments = new Fragment[5];
         initView();
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
         mPersonalCenterFragment = new PersonalCenterFragment();
-        fragments[0] = mNewGoodsFragment;
-        fragments[1] = mBoutiqueFragment;
-        fragments[2] = mCategoryFragment;
-        fragments[4] = mPersonalCenterFragment;
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, mNewGoodsFragment)
-                .add(R.id.fragment_container, mBoutiqueFragment)
-                .add(R.id.fragment_container, mCategoryFragment)
-                .add(R.id.fragment_container,mPersonalCenterFragment)
-//                .show(newGoodsFragment)
-                .hide(mBoutiqueFragment)
-                .hide(mCategoryFragment)
-                .hide(mPersonalCenterFragment)
-                .commit();
+        mFragments[0] = mNewGoodsFragment;
+        mFragments[1] = mBoutiqueFragment;
+        mFragments[2] = mCategoryFragment;
+        mFragments[4] = mPersonalCenterFragment;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, mNewGoodsFragment).commit();
     }
 
     private void initView() {
@@ -106,9 +97,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment() {
-        getSupportFragmentManager().beginTransaction().show(fragments[mIndex])
-                .hide(fragments[mCurrentIndex]).commit();
-
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.hide(mFragments[mCurrentIndex]);
+        if (!mFragments[mIndex].isAdded()) {
+            ft.add(R.id.fragment_container, mFragments[mIndex]);
+        }
+        ft.show(mFragments[mIndex]).commit();
     }
 
     private void setRadioStatus() {
