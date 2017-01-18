@@ -39,7 +39,7 @@ public class ModelUser implements IModelUser {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME,username)
-                .addParam(I.User.NICK, MD5.getMessageDigest(usernick))
+                .addParam(I.User.NICK, usernick)
                 .targetClass(String.class)
                 .execute(listener);
     }

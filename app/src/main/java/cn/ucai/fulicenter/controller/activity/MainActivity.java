@@ -21,6 +21,8 @@ import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 import cn.ucai.fulicenter.controller.fragment.PersonalCenterFragment;
 import cn.ucai.fulicenter.view.MFGT;
 
+import static android.R.attr.tag;
+
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
     RadioButton[] mrbS;

@@ -1,6 +1,7 @@
 package cn.ucai.fulicenter.controller.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -68,10 +69,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     @OnClick(R.id.rl_nick)
     public void updateNick() {
-        String nick = tvNick.getText().toString().trim();
-        if (TextUtils.isEmpty(nick)) {
-            tvNick.setError(getResources().getString(R.string.nick_name_connot_be_empty));
+        MFGT.gotoUpDataNick(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_NICK) {
+            tvNick.setText(FuLiCenterApplication.getUser().getMuserNick());
         }
-        Toast.makeText(this, "===---===", Toast.LENGTH_SHORT).show();
     }
 }

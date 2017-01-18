@@ -22,9 +22,9 @@ public class DisplayUtils {
 //    }
 
 //    id需要重新find
-//    public static void initBackWithTitle(Activity activity, String titlt) {
+//    public static void initBackWithTitle(Activity activity, String title) {
 //        TextView textView = (TextView) activity.findViewById(R.id.tv_common_title);
-//        textView.setText(titlt);
+//        textView.setText(title);
 //        initBack(activity);
 //    }
 }

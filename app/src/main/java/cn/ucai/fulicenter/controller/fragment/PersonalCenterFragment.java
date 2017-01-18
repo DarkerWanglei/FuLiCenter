@@ -53,6 +53,12 @@ public class PersonalCenterFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void loadUserInfo(User user) {
         ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
         tvUserName.setText(user.getMuserNick());
@@ -62,4 +68,5 @@ public class PersonalCenterFragment extends Fragment {
     public void settings() {
         MFGT.gotoSettings(getActivity());
     }
+
 }

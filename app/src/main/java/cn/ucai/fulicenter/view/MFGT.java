@@ -3,9 +3,6 @@ package cn.ucai.fulicenter.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,13 +12,11 @@ import cn.ucai.fulicenter.controller.activity.BoutiqueChildActivity;
 import cn.ucai.fulicenter.controller.activity.CategoryActivity;
 import cn.ucai.fulicenter.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulicenter.controller.activity.LoginActivity;
-import cn.ucai.fulicenter.controller.activity.MainActivity;
 import cn.ucai.fulicenter.controller.activity.RegisterActivity;
 import cn.ucai.fulicenter.controller.activity.SettingsActivity;
+import cn.ucai.fulicenter.controller.activity.UpdateNickActivity;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
-import cn.ucai.fulicenter.model.bean.CategoryGroupBean;
-import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 
 /**
  * Created by Administrator on 2017/1/10.
@@ -98,5 +93,9 @@ public class MFGT {
 
     public static void gotoSettings(Activity activity) {
         startActivity(activity, SettingsActivity.class);
+    }
+
+    public static void gotoUpDataNick(Activity activity) {
+        activity.startActivityForResult(new Intent(activity, UpdateNickActivity.class), I.REQUEST_CODE_NICK);
     }
 }
