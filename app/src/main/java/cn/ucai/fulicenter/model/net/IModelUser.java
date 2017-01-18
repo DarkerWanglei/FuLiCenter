@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.io.File;
 
+import cn.ucai.fulicenter.model.bean.MessageBean;
+
 /**
  * Created by Administrator on 2017/1/16.
  */
@@ -17,4 +19,5 @@ public interface IModelUser {
 
     void updateAvatar(Context context, String username, File file, onCompleteListener<String> listener);
 
+    void getCollectCount(Context context, String username, onCompleteListener<MessageBean> listener);
 }

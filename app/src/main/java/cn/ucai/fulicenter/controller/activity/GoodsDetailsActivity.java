@@ -82,9 +82,11 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         } else {
             ivCollect.setImageResource(R.mipmap.bg_collect_in);
         }
+        ivCollect.setEnabled(true);
     }
 
     private void initCollectStatus() {
+        ivCollect.setEnabled(false);
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
             mModel.isCollect(this, mGoodId, user.getMuserName(), new onCompleteListener<MessageBean>() {
@@ -164,11 +166,13 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivCollect)
     public void setCollectListener() {
+        ivCollect.setEnabled(false);
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
             setCollect(user);
         } else {
             MFGT.gotoLogin(this);
+            ivCollect.setEnabled(true);
         }
     }
 
@@ -186,6 +190,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 CommonUtils.showLongToast(error);
+                ivCollect.setEnabled(true);
             }
         });
     }

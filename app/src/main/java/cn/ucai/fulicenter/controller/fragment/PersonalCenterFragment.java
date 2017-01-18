@@ -14,7 +14,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
+import cn.ucai.fulicenter.model.bean.MessageBean;
 import cn.ucai.fulicenter.model.bean.User;
+import cn.ucai.fulicenter.model.net.IModelUser;
+import cn.ucai.fulicenter.model.net.ModelUser;
+import cn.ucai.fulicenter.model.net.onCompleteListener;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
 import cn.ucai.fulicenter.view.MFGT;
 
@@ -28,6 +32,10 @@ public class PersonalCenterFragment extends Fragment {
     ImageView ivUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
+    @BindView(R.id.tv_collect_count)
+    TextView tvCollectCount;
+
+    IModelUser mModelUser;
 
     public PersonalCenterFragment() {
         // Required empty public constructor
@@ -48,8 +56,6 @@ public class PersonalCenterFragment extends Fragment {
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
             loadUserInfo(user);
-        } else {
-//            MFGT.gotoLogin(getActivity());
         }
     }
 
@@ -57,11 +63,36 @@ public class PersonalCenterFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
+        getCollectCount();
     }
 
     private void loadUserInfo(User user) {
         ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
         tvUserName.setText(user.getMuserNick());
+        loadCollectCount("0");
+    }
+
+    private void loadCollectCount(String count) {
+        tvCollectCount.setText(String.valueOf(count));
+    }
+
+    private void getCollectCount() {
+        mModelUser = new ModelUser();
+        mModelUser.getCollectCount(getContext(), FuLiCenterApplication.getUser().getMuserName(), new onCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+                    loadCollectCount(result.getMsg());
+                } else {
+                    loadCollectCount("0");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                loadCollectCount("0");
+            }
+        });
     }
 
     @OnClick({R.id.tv_center_settings, R.id.center_user_info})
@@ -69,4 +100,7 @@ public class PersonalCenterFragment extends Fragment {
         MFGT.gotoSettings(getActivity());
     }
 
+    @OnClick(R.id.tv_collect_count)
+    public void onClick() {
+    }
 }

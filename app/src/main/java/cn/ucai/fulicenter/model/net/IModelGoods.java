@@ -14,5 +14,6 @@ public interface IModelGoods {
 
     void isCollect(Context context, int goodId, String username, onCompleteListener<MessageBean> listener);
 
-    void setCollect(Context context, int goodId, String username,int action, onCompleteListener<MessageBean> listener);
+    void setCollect(Context context, int goodId, String username, int action, onCompleteListener<MessageBean> listener);
+
 }
