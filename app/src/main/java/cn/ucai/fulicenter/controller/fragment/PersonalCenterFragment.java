@@ -67,7 +67,8 @@ public class PersonalCenterFragment extends Fragment {
     }
 
     private void loadUserInfo(User user) {
-        ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
+//        ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
+        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),getContext(),ivUserAvatar);
         tvUserName.setText(user.getMuserNick());
         loadCollectCount("0");
     }
@@ -100,7 +101,4 @@ public class PersonalCenterFragment extends Fragment {
         MFGT.gotoSettings(getActivity());
     }
 
-    @OnClick(R.id.tv_collect_count)
-    public void onClick() {
-    }
 }

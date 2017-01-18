@@ -95,7 +95,7 @@ public class MFGT {
         startActivity(activity, SettingsActivity.class);
     }
 
-    public static void gotoUpDataNick(Activity activity) {
+    public static void gotoUpDateNick(Activity activity) {
         activity.startActivityForResult(new Intent(activity, UpdateNickActivity.class), I.REQUEST_CODE_NICK);
     }
 }

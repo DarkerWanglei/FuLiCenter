@@ -62,7 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void loadUserInfo(User user) {
-        ImageLoader.downloadImg(this, ivAvatar, user.getAvatarPath());
+//        ImageLoader.downloadImg(this, ivAvatar, user.getAvatarPath());
+        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), this, ivAvatar);
         tvUsername.setText(user.getMuserName());
         tvNick.setText(user.getMuserNick());
     }
@@ -87,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @OnClick(R.id.rl_nick)
     public void updateNick() {
-        MFGT.gotoUpDataNick(this);
+        MFGT.gotoUpDateNick(this);
     }
 
     @OnClick(R.id.rl_avatar)
@@ -109,25 +110,26 @@ public class SettingsActivity extends AppCompatActivity {
         if (requestCode == I.REQUEST_CODE_NICK) {
             tvNick.setText(FuLiCenterApplication.getUser().getMuserNick());
         } else if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
-            uploadAvatar();
+            updateAvatar();
+        } else {
+            mOnSetAvatarListener.setAvatar(requestCode, data, ivAvatar);
         }
-        mOnSetAvatarListener.setAvatar(requestCode, data, ivAvatar);
     }
 
-    private void uploadAvatar() {
+    private void updateAvatar() {
         User user = FuLiCenterApplication.getUser();
         mModelUser = new ModelUser();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.update_user_avatar));
         dialog.show();
-        File file = new File(String.valueOf(OnSetAvatarListener.getAvatarFile(this,
-                OnSetAvatarListener.getAvatarPath(this,
-                        "/" + user.getMuserName() + user.getMavatarSuffix()))));
+        File file = new File(String.valueOf(OnSetAvatarListener.getAvatarFile
+                (this, I.AVATAR_TYPE_USER_PATH + "/" + user.getMuserName() + user.getMavatarSuffix())));
         Log.i("main", "file=" + file.getAbsolutePath());
-        mModelUser.updateAvatar(this, FuLiCenterApplication.getUser().getMuserName(),
+        mModelUser.updateAvatar(this, user.getMuserName(),
                 file, new onCompleteListener<String>() {
                     @Override
                     public void onSuccess(String s) {
+                        Log.i("main", "---  ---" + s);
                         int msg = R.string.update_user_avatar_fail;
                         if (s != null) {
                             Result result = ResultUtils.getResultFromJson(s, User.class);
@@ -143,6 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(String error) {
+                        Log.i("main", "======" + error);
                         CommonUtils.showLongToast(error);
                         dialog.dismiss();
                     }
