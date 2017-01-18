@@ -27,6 +27,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_avatar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -49,6 +50,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
