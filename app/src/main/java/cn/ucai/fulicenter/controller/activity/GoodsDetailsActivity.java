@@ -72,8 +72,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        initCollectStatus();
-
+        initCollectStatus();
     }
 
     private void setCollectStatus() {
@@ -95,12 +94,12 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                     } else {
                         isCollect = false;
                     }
-//                    setCollectStatus();
+                    setCollectStatus();
                 }
 
                 @Override
                 public void onError(String error) {
-
+                    isCollect = false;
                 }
             });
         }
