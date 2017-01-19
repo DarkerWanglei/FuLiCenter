@@ -144,6 +144,25 @@ public class CollectAdapter extends RecyclerView.Adapter {
         public void details() {
             MFGT.gotoBoutiqueChild(mContext, mList.get(itemPosition).getGoodsId());
         }
+
+        @OnClick(R.id.ivCollectDel)
+        public void delCollect() {
+            mModel.setCollect(mContext, mList.get(itemPosition).getGoodsId(), user.getMuserName(),
+                    I.ACTION_DELETE_COLLECT, new onCompleteListener<MessageBean>() {
+                        @Override
+                        public void onSuccess(MessageBean result) {
+                            if (result != null && result.isSuccess()) {
+                                mList.remove(itemPosition);
+                                notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+        }
     }
 }
 
