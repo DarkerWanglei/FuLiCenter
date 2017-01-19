@@ -139,6 +139,9 @@ public class NewGoodsFragment extends Fragment {
 
             @Override
             public void onError(String error) {
+                mSrl.setRefreshing(false);
+                mtvRefresh.setVisibility(View.GONE);
+                mAdapter.setMore(false);
                 Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
             }
         });
