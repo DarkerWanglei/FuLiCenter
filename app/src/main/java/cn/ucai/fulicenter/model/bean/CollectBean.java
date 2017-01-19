@@ -6,10 +6,9 @@ import java.io.Serializable;
  * Created by Administrator on 2017/1/9.
  */
 
-public class CollectBean implements Serializable{
+public class CollectBean implements Serializable {
 
     /**
-     *
      * id : 2130
      * userName : a123456
      * goodsId : 7672
@@ -30,6 +29,10 @@ public class CollectBean implements Serializable{
     private long addTime;
 
     public CollectBean() {
+    }
+
+    public CollectBean(int goodsId) {
+        this.goodsId = goodsId;
     }
 
     public int getId() {
@@ -108,5 +111,19 @@ public class CollectBean implements Serializable{
                 ", goodsImg='" + goodsImg + '\'' +
                 ", addTime=" + addTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CollectBean)) return false;
+
+        CollectBean that = (CollectBean) o;
+        return getGoodsId() == that.getGoodsId();
+    }
+
+    @Override
+    public int hashCode() {
+        return goodsId;
     }
 }

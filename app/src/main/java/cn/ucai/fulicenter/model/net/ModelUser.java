@@ -4,7 +4,9 @@ import android.content.Context;
 
 import java.io.File;
 
+import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
+import cn.ucai.fulicenter.model.bean.CartBean;
 import cn.ucai.fulicenter.model.bean.CollectBean;
 import cn.ucai.fulicenter.model.bean.MessageBean;
 import cn.ucai.fulicenter.model.bean.User;
@@ -20,7 +22,7 @@ public class ModelUser implements IModelUser {
     public void login(Context context, String username, String password, onCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.User.USER_NAME, username)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .execute(listener);
@@ -30,9 +32,9 @@ public class ModelUser implements IModelUser {
     public void register(Context context, String username, String usernick, String password, onCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_REGISTER)
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.User.USER_NAME, username)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
-                .addParam(I.User.NICK,usernick)
+                .addParam(I.User.NICK, usernick)
                 .post()
                 .targetClass(String.class)
                 .execute(listener);
@@ -42,7 +44,7 @@ public class ModelUser implements IModelUser {
     public void updateNick(Context context, String username, String usernick, onCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.User.USER_NAME, username)
                 .addParam(I.User.NICK, usernick)
                 .targetClass(String.class)
                 .execute(listener);
@@ -52,7 +54,7 @@ public class ModelUser implements IModelUser {
     public void updateAvatar(Context context, String username, File file, onCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
-                .addParam(I.NAME_OR_HXID,username)
+                .addParam(I.NAME_OR_HXID, username)
                 .addParam(I.AVATAR_TYPE, I.AVATAR_TYPE_USER_PATH)
                 .addFile2(file)
                 .post()
@@ -64,7 +66,7 @@ public class ModelUser implements IModelUser {
     public void getCollectCount(Context context, String username, onCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
-                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.Collect.USER_NAME, username)
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
@@ -73,10 +75,62 @@ public class ModelUser implements IModelUser {
     public void getCollects(Context context, String username, int pageId, int pageSize, onCompleteListener<CollectBean[]> listener) {
         OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
-                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.Collect.USER_NAME, username)
                 .addParam(I.PAGE_ID, String.valueOf(pageId))
                 .addParam(I.PAGE_SIZE, String.valueOf(pageSize))
                 .targetClass(CollectBean[].class)
                 .execute(listener);
+    }
+
+    @Override
+    public void getCart(Context context, String username, onCompleteListener<CartBean[]> listener) {
+        OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME, username)
+                .targetClass(CartBean[].class)
+                .execute(listener);
+    }
+
+    @Override
+    public void addCart(Context context, String username, int goodsId, int count, onCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_CART)
+                .addParam(I.Cart.USER_NAME, username)
+                .addParam(I.Cart.GOODS_ID, String.valueOf(goodsId))
+                .addParam(I.Cart.COUNT, String.valueOf(count))
+                .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void deleteCart(Context context, int cartId, onCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_CART)
+                .addParam(I.Cart.ID, String.valueOf(cartId))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void updateCart(Context context, int cartId, int count, onCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID, String.valueOf(cartId))
+                .addParam(I.Cart.COUNT, String.valueOf(count))
+                .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void updateCart(Context context, int action, String username, int goodsId, int count, int cartId, onCompleteListener<MessageBean> listener) {
+        if (action == I.ACTION_CART_UPDATE) {
+            updateCart(context, cartId, count, listener);
+        } else if (action == I.ACTION_CART_DELETE) {
+            deleteCart(context, cartId, listener);
+        } else {
+            addCart(context, username, goodsId, count, listener);
+        }
     }
 }

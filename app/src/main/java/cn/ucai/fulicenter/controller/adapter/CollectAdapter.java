@@ -120,6 +120,13 @@ public class CollectAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void removeItem(int goodsId) {
+        if (goodsId != 0) {
+            mList.remove(new CollectBean(goodsId));
+            notifyDataSetChanged();
+        }
+    }
+
     class CollectViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivGoodsThumb)
         ImageView ivGoodsThumb;

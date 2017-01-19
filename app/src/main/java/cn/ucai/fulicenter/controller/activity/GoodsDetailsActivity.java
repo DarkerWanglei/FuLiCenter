@@ -1,8 +1,10 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +21,9 @@ import cn.ucai.fulicenter.model.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.model.bean.MessageBean;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelGoods;
+import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelGoods;
+import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.onCompleteListener;
 import cn.ucai.fulicenter.model.utils.CommonUtils;
 import cn.ucai.fulicenter.view.FlowIndicator;
@@ -30,6 +34,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
     int mGoodId;
     IModelGoods mModel;
+    IModelUser mModelUser;
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.tvName)
@@ -164,6 +169,30 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.ivCart)
+    public void Cart() {
+        User user = FuLiCenterApplication.getUser();
+        if (user != null) {
+            mModelUser = new ModelUser();
+            mModelUser.updateCart(this, I.ACTION_CART_ADD, user.getMuserName(), mGoodId, 1, 1, new onCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null) {
+                        CommonUtils.showLongToast(R.string.add_goods_success);
+                        Log.i("main", result.toString());
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+
+                }
+            });
+        } else {
+            MFGT.gotoLogin(this);
+        }
+    }
+
     @OnClick(R.id.ivCollect)
     public void setCollectListener() {
         ivCollect.setEnabled(false);
@@ -184,6 +213,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                     isCollect = !isCollect;
                     setCollectStatus();
                     CommonUtils.showLongToast(result.getMsg());
+                    sendBroadcast(new Intent(I.BROADCAST_UPDATE_COLLECT).putExtra(I.Collect.GOODS_ID, mGoodId));
                 }
             }
 

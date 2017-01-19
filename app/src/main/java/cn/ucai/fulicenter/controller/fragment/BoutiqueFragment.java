@@ -134,6 +134,5 @@ public class BoutiqueFragment extends Fragment {
     @OnClick(R.id.load_more)
     public void onClick() {
         downloadBoutique(I.ACTION_DOWNLOAD);
-
     }
 }

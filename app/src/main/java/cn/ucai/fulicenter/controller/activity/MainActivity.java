@@ -16,6 +16,7 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.controller.fragment.CartFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 import cn.ucai.fulicenter.controller.fragment.PersonalCenterFragment;
@@ -26,11 +27,13 @@ import static android.R.attr.tag;
 public class MainActivity extends AppCompatActivity {
     int mIndex, mCurrentIndex;
     RadioButton[] mrbS;
+    Fragment[] mFragments;
+
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFragment;
     PersonalCenterFragment mPersonalCenterFragment;
-    Fragment[] mFragments;
 
     @BindView(R.id.layout_new_good)
     RadioButton mLayoutNewGood;
@@ -54,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
+        mCartFragment = new CartFragment();
         mPersonalCenterFragment = new PersonalCenterFragment();
         mFragments[0] = mNewGoodsFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
+        mFragments[3] = mCartFragment;
         mFragments[4] = mPersonalCenterFragment;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, mNewGoodsFragment).commit();
@@ -84,7 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 mIndex = 2;
                 break;
             case R.id.layout_cart:
-                mIndex = 3;
+                if (FuLiCenterApplication.getUser() == null) {
+                    MFGT.gotoLogin(this,I.REQUEST_CODE_LOGIN_FROM_CART);
+                } else {
+                    mIndex = 3;
+                }
                 break;
             case R.id.layout_personal_center:
                 if (FuLiCenterApplication.getUser() == null) {
@@ -108,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             ft.add(R.id.fragment_container, mFragments[mIndex]);
         }
         ft.show(mFragments[mIndex]).commitAllowingStateLoss();
-//        commitAllowingStateLoss()
     }
 
     private void setRadioStatus() {
@@ -135,10 +143,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("main", "onActivityResult" + resultCode);
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
-            mIndex = 4;
+        if (resultCode == RESULT_OK) {
+            if (requestCode == I.REQUEST_CODE_LOGIN) {
+                mIndex = 4;
+            }
+            if (requestCode == I.REQUEST_CODE_LOGIN_FROM_CART) {
+                mIndex = 3;
+            }
             setFragment();
             setRadioStatus();
         }

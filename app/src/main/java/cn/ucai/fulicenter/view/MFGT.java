@@ -35,6 +35,7 @@ public class MFGT {
 
     /**
      * 结束activity
+     *
      * @param activity
      */
     public static void finishActivity(Activity activity) {
@@ -44,16 +45,18 @@ public class MFGT {
 
     /**
      * 启动另一个activity
+     *
      * @param activity
      * @param intent
      */
-    public static void startActivity(Activity activity,Intent intent) {
+    public static void startActivity(Activity activity, Intent intent) {
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
     /**
      * 精选页面进入
+     *
      * @param context
      * @param boutiqueBean
      */
@@ -61,18 +64,19 @@ public class MFGT {
         Intent intent = new Intent(context, BoutiqueChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID, boutiqueBean.getId());
         intent.putExtra(I.Boutique.NAME, boutiqueBean.getTitle());
-        startActivity((Activity) context,intent);
+        startActivity((Activity) context, intent);
     }
 
     /**
      * 进入商品详情
+     *
      * @param context
      * @param goodsId
      */
-    public static void gotoBoutiqueChild(Context context,int goodsId) {
+    public static void gotoBoutiqueChild(Context context, int goodsId) {
         Intent intent = new Intent(context, GoodsDetailsActivity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId);
-        startActivity((Activity) context,intent);
+        startActivity((Activity) context, intent);
     }
 
     public static void gotoCategoryChild(Context context, int catId,
@@ -81,16 +85,20 @@ public class MFGT {
         intent.putExtra(I.CategoryChild.CAT_ID, catId);
         intent.putExtra(I.CategoryGroup.NAME, groupName);
         intent.putExtra(I.CategoryChild.DATA, list);
-        startActivity((Activity) context,intent);
+        startActivity((Activity) context, intent);
     }
 
     public static void gotoLogin(Activity context) {
-        context.startActivityForResult(new Intent(context,LoginActivity.class),I.REQUEST_CODE_LOGIN);
+        context.startActivityForResult(new Intent(context, LoginActivity.class), I.REQUEST_CODE_LOGIN);
 //        startActivity(context, LoginActivity.class);
     }
 
+    public static void gotoLogin(Activity context, int code) {
+        context.startActivityForResult(new Intent(context, LoginActivity.class), code);
+    }
+
     public static void gotoRegister(LoginActivity loginActivity) {
-        startActivity(loginActivity,RegisterActivity.class);
+        startActivity(loginActivity, RegisterActivity.class);
     }
 
     public static void gotoSettings(Activity activity) {

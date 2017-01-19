@@ -74,16 +74,13 @@ public class UpdateNickActivity extends AppCompatActivity {
         mModelUser.updateNick(this, user.getMuserName(), nick, new onCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                Log.i("main", "s=" + s.toString());
                 int msg = R.string.update_fail;
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, User.class);
-                    Log.i("main", "result=" + result.toString());
                     if (result != null) {
                         if (result.isRetMsg()) {
                             msg = R.string.update_user_nick_success;
                             User user = (User) result.getRetData();
-                            Log.i("main", "user=" + user.toString());
                             saveNewUser(user);
                             setResult(RESULT_OK);
                             finish();

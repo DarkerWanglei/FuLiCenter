@@ -70,7 +70,7 @@ public class PersonalCenterFragment extends Fragment {
 
     private void loadUserInfo(User user) {
 //        ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
-        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),getContext(),ivUserAvatar);
+        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), getContext(), ivUserAvatar);
         tvUserName.setText(user.getMuserNick());
         loadCollectCount("0");
     }

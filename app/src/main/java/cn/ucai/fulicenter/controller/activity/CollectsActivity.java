@@ -1,5 +1,9 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +48,7 @@ public class CollectsActivity extends AppCompatActivity {
     CollectAdapter mAdapter;
     GridLayoutManager mGm;
     ArrayList<CollectBean> mList;
+    UpdateCollectReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,21 @@ public class CollectsActivity extends AppCompatActivity {
             initView();
             initData(I.ACTION_DOWNLOAD);
             setListener();
+            setReceiverListener();
         }
     }
+
+    private void setReceiverListener() {
+        mReceiver = new UpdateCollectReceiver();
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATE_COLLECT);
+        registerReceiver(mReceiver, filter);
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        initData(I.ACTION_DOWNLOAD);
+//    }
 
     private void initView() {
         mSrl.setColorSchemeColors(
@@ -155,5 +173,21 @@ public class CollectsActivity extends AppCompatActivity {
                 Toast.makeText(CollectsActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    class UpdateCollectReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int goodsId = intent.getIntExtra(I.Collect.GOODS_ID, 0);
+            mAdapter.removeItem(goodsId);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 }
