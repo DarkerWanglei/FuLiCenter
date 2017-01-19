@@ -22,6 +22,8 @@ import cn.ucai.fulicenter.model.net.onCompleteListener;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
 import cn.ucai.fulicenter.view.MFGT;
 
+import static android.R.attr.onClick;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -56,6 +58,7 @@ public class PersonalCenterFragment extends Fragment {
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
             loadUserInfo(user);
+            getCollectCount();
         }
     }
 
@@ -63,7 +66,6 @@ public class PersonalCenterFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
-        getCollectCount();
     }
 
     private void loadUserInfo(User user) {
@@ -101,4 +103,8 @@ public class PersonalCenterFragment extends Fragment {
         MFGT.gotoSettings(getActivity());
     }
 
+    @OnClick(R.id.layout_center_collect)
+    public void Collects() {
+        MFGT.gotoCollects(getActivity());
+    }
 }
