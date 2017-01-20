@@ -35,6 +35,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     int mGoodId;
     IModelGoods mModel;
     IModelUser mModelUser;
+
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.tvName)
@@ -91,7 +92,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     }
 
     private void initCollectStatus() {
-        ivCollect.setEnabled(false);
+//        ivCollect.setEnabled(false);
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
             mModel.isCollect(this, mGoodId, user.getMuserName(), new onCompleteListener<MessageBean>() {
@@ -179,13 +180,12 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                 public void onSuccess(MessageBean result) {
                     if (result != null) {
                         CommonUtils.showLongToast(R.string.add_goods_success);
-                        Log.i("main", result.toString());
                     }
                 }
 
                 @Override
                 public void onError(String error) {
-
+                    ivCollect.setEnabled(true);
                 }
             });
         } else {
@@ -200,8 +200,8 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         if (user != null) {
             setCollect(user);
         } else {
+//            ivCollect.setEnabled(true);
             MFGT.gotoLogin(this);
-            ivCollect.setEnabled(true);
         }
     }
 
@@ -219,6 +219,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
+                Log.i("main", error);
                 CommonUtils.showLongToast(error);
                 ivCollect.setEnabled(true);
             }

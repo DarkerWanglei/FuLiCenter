@@ -129,7 +129,6 @@ public class SettingsActivity extends AppCompatActivity {
                 file, new onCompleteListener<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Log.i("main", "---  ---" + s);
                         int msg = R.string.update_user_avatar_fail;
                         if (s != null) {
                             Result result = ResultUtils.getResultFromJson(s, User.class);

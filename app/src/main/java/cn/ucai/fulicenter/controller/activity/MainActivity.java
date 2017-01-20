@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.layout_cart:
                 if (FuLiCenterApplication.getUser() == null) {
-                    MFGT.gotoLogin(this,I.REQUEST_CODE_LOGIN_FROM_CART);
+                    MFGT.gotoLogin(this, I.REQUEST_CODE_LOGIN_FROM_CART);
                 } else {
                     mIndex = 3;
                 }

@@ -22,6 +22,7 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
+import cn.ucai.fulicenter.controller.adapter.CartAdapter;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.CartBean;
 import cn.ucai.fulicenter.model.bean.CollectBean;
@@ -40,8 +41,8 @@ import cn.ucai.fulicenter.view.MFGT;
 public class CartFragment extends Fragment {
 
     LinearLayoutManager linearLayoutManager;
-    BoutiqueAdapter mAdapter;
-    ArrayList<NewGoodsBean> mList;
+    CartAdapter mAdapter;
+    ArrayList<CartBean> mList;
     IModelUser mModel;
     User user;
     @BindView(R.id.tv_cart_buy)
@@ -98,22 +99,21 @@ public class CartFragment extends Fragment {
                     srl.setVisibility(View.VISIBLE);
                     tvNothing.setVisibility(View.GONE);
                     if (result != null && result.length > 0) {
-                    }
-                    ArrayList<CartBean> list = ConvertUtils.array2List(result);
-                    Log.i("main", "====---=-=-==-=" + list.size());
-                    switch (action) {
-                        case I.ACTION_DOWNLOAD:
-//                            mAdapter.initData(list);
-                            break;
-                        case I.ACTION_PULL_DOWN:
-                            srl.setRefreshing(false);
-                            tvRefresh.setVisibility(View.GONE);
-//                            mAdapter.initData(list);
-                            break;
-                        default:
-                            srl.setVisibility(View.GONE);
-                            tvNothing.setVisibility(View.VISIBLE);
-                            break;
+                        ArrayList<CartBean> list = ConvertUtils.array2List(result);
+                        switch (action) {
+                            case I.ACTION_DOWNLOAD:
+                                mAdapter.initData(list);
+                                break;
+                            case I.ACTION_PULL_DOWN:
+                                srl.setRefreshing(false);
+                                tvRefresh.setVisibility(View.GONE);
+                                mAdapter.initData(list);
+                                break;
+                            default:
+                                srl.setVisibility(View.GONE);
+                                tvNothing.setVisibility(View.VISIBLE);
+                                break;
+                        }
                     }
                 }
 
@@ -137,7 +137,7 @@ public class CartFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(linearLayoutManager);
         mList = new ArrayList<>();
-//        mAdapter = new BoutiqueAdapter(getContext(), mList);
+        mAdapter = new CartAdapter(getContext(), mList);
         rv.setAdapter(mAdapter);
         rv.setHasFixedSize(true);
         rv.addItemDecoration(new SpaceItemDecoration(15));
