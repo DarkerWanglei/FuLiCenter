@@ -53,7 +53,7 @@ public class CartBean implements Serializable{
         this.goodsId = goodsId;
     }
 
-    public Object getGoods() {
+    public GoodsDetailsBean getGoods() {
         return goods;
     }
 

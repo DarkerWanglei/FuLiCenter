@@ -1,6 +1,10 @@
 package cn.ucai.fulicenter.controller.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,19 +25,15 @@ import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
-import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
 import cn.ucai.fulicenter.controller.adapter.CartAdapter;
-import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.CartBean;
-import cn.ucai.fulicenter.model.bean.CollectBean;
-import cn.ucai.fulicenter.model.bean.NewGoodsBean;
+import cn.ucai.fulicenter.model.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.onCompleteListener;
 import cn.ucai.fulicenter.model.utils.ConvertUtils;
 import cn.ucai.fulicenter.model.utils.SpaceItemDecoration;
-import cn.ucai.fulicenter.view.MFGT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +45,8 @@ public class CartFragment extends Fragment {
     ArrayList<CartBean> mList;
     IModelUser mModel;
     User user;
+    UpdateReceiver mReceiver;
+
     @BindView(R.id.tv_cart_buy)
     TextView tvCartBuy;
     @BindView(R.id.tv_refresh)
@@ -55,6 +57,11 @@ public class CartFragment extends Fragment {
     RecyclerView rv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+    @BindView(R.id.tvSumPrice)
+    TextView tvSumPrice;
+    @BindView(R.id.tvSavePrice)
+    TextView tvSavePrice;
+
 
     public CartFragment() {
         // Required empty public constructor
@@ -67,12 +74,25 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this, layout);
-        initView();
         mModel = new ModelUser();
         user = FuLiCenterApplication.getUser();
+        mReceiver = new UpdateReceiver();
         initData(I.ACTION_DOWNLOAD);
         setListener();
+        setReceiverListener();
+        initView();
         return layout;
+    }
+
+    private void setReceiverListener() {
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATE_CART);
+        getActivity().registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setPrice();
     }
 
     private void setListener() {
@@ -100,6 +120,7 @@ public class CartFragment extends Fragment {
                     tvNothing.setVisibility(View.GONE);
                     if (result != null && result.length > 0) {
                         ArrayList<CartBean> list = ConvertUtils.array2List(result);
+                        mList.addAll(list);
                         switch (action) {
                             case I.ACTION_DOWNLOAD:
                                 mAdapter.initData(list);
@@ -148,4 +169,40 @@ public class CartFragment extends Fragment {
         initData(I.ACTION_DOWNLOAD);
     }
 
+
+    private void setPrice() {
+        int sumPrice = 0;
+        int savePrice = 0;
+        if (mList != null && mList.size() > 0) {
+            for (CartBean cart : mList) {
+                GoodsDetailsBean goods = cart.getGoods();
+                if (cart.isChecked() && goods != null) {
+                    sumPrice += cart.getCount() * getPrice(goods.getCurrencyPrice());
+                    savePrice += cart.getCount() *
+                            (getPrice(goods.getCurrencyPrice()) - getPrice(goods.getRankPrice()));
+                }
+            }
+            tvSumPrice.setText(sumPrice + "");
+            tvSavePrice.setText(savePrice + "");
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    int getPrice(String price) {
+        return Integer.valueOf(price.substring(price.indexOf("￥") + 1));
+    }
+
+    class UpdateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            Log.i("main", "onReceive");
+            setPrice();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(mReceiver);
+    }
 }
