@@ -1,1 +1,4 @@
-include ':app'
+include ':app', ':lib:bdwallet_pay_sdk', ':lib:pingpp', ':lib:pingpp_one'
+project(':lib:bdwallet_pay_sdk').projectDir = new File('pingpp_temp/pingpp-android-master/pingpp-android-master/lib/bdwallet_pay_sdk')
+project(':lib:pingpp').projectDir = new File('pingpp_temp/pingpp-android-master/pingpp-android-master/lib/pingpp')
+project(':lib:pingpp_one').projectDir = new File('pingpp_temp/pingpp-android-master/pingpp-android-master/lib/pingpp_one')
