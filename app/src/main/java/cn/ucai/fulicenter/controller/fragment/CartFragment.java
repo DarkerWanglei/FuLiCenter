@@ -32,8 +32,10 @@ import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.onCompleteListener;
+import cn.ucai.fulicenter.model.utils.CommonUtils;
 import cn.ucai.fulicenter.model.utils.ConvertUtils;
 import cn.ucai.fulicenter.model.utils.SpaceItemDecoration;
+import cn.ucai.fulicenter.view.MFGT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +48,8 @@ public class CartFragment extends Fragment {
     IModelUser mModel;
     User user;
     UpdateReceiver mReceiver;
+    int sumPrice;
+    int payPrice;
 
     @BindView(R.id.tv_cart_buy)
     TextView tvCartBuy;
@@ -74,17 +78,17 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this, layout);
+        initView();
         mModel = new ModelUser();
         user = FuLiCenterApplication.getUser();
-        mReceiver = new UpdateReceiver();
         initData(I.ACTION_DOWNLOAD);
         setListener();
         setReceiverListener();
-        initView();
         return layout;
     }
 
     private void setReceiverListener() {
+        mReceiver = new UpdateReceiver();
         IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATE_CART);
         getActivity().registerReceiver(mReceiver, filter);
     }
@@ -169,9 +173,19 @@ public class CartFragment extends Fragment {
         initData(I.ACTION_DOWNLOAD);
     }
 
+    @OnClick(R.id.tv_cart_buy)
+    public void onOrderClick() {
+        if (sumPrice > 0) {
+            MFGT.gotoOrder(getActivity(), payPrice);
+        } else {
+            CommonUtils.showLongToast(R.string.order_nothing);
+        }
+    }
+
 
     private void setPrice() {
-        int sumPrice = 0;
+        sumPrice = 0;
+        payPrice = 0;
         int savePrice = 0;
         if (mList != null && mList.size() > 0) {
             for (CartBean cart : mList) {
@@ -185,6 +199,7 @@ public class CartFragment extends Fragment {
             tvSumPrice.setText(sumPrice + "");
             tvSavePrice.setText(savePrice + "");
             mAdapter.notifyDataSetChanged();
+            payPrice = sumPrice - savePrice;
         }
     }
 
@@ -195,7 +210,7 @@ public class CartFragment extends Fragment {
     class UpdateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            Log.i("main", "onReceive");
+            Log.i("main", "onReceive");
             setPrice();
         }
     }
@@ -203,6 +218,8 @@ public class CartFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContext().unregisterReceiver(mReceiver);
+        if (mReceiver != null) {
+            getContext().unregisterReceiver(mReceiver);
+        }
     }
 }

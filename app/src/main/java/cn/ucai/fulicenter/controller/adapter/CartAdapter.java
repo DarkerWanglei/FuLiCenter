@@ -120,6 +120,7 @@ public class CartAdapter extends RecyclerView.Adapter {
                             if (result != null && result.isSuccess()) {
                                 mList.get(listPosition).setCount(mList.get(listPosition).getCount() + 1);
                                 mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATE_CART));
+//                                notifyDataSetChanged();
                             }
                         }
 
@@ -148,6 +149,7 @@ public class CartAdapter extends RecyclerView.Adapter {
                                     mList.get(listPosition).setCount(count - 1);
                                 }
                                 mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATE_CART));
+//                                notifyDataSetChanged();
                             }
                         }
 

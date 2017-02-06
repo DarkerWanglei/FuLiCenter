@@ -270,6 +270,7 @@ public interface I {
         String GOODS_ID = "goods_id";
         String GOODS_THUMB = "goodsThumb";
         String USER_NAME = "userName";
+        String PAY_PRICE = "payPrice";
         /**
          * 购物车中该商品的件数
          */
